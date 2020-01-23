@@ -1,0 +1,44 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+    <div class="ui-serch-bar-form" cellspacing="0"><tr>
+        <td>
+            <mat-form-field class="items">
+                <input matInput placeholder="Účet" type="text" formControlName="account">
+                <mat-error *ngIf="searchForm.controls.account.invalid && searchForm.controls.account.touched">Neznámý
+                        formát</mat-error>
+            </mat-form-field>
+        </td>
+        <td>
+            <mat-form-field class="items">
+                <input matInput placeholder="KBID" type="text" formControlName="Kbid" >
+                <mat-error *ngIf="searchForm.controls.Kbid.invalid && searchForm.controls.Kbid.touched">Neznámý
+                        formát</mat-error>
+            </mat-form-field>
+        </td>
+        <td>
+            <mat-form-field class="items">
+                <input matInput placeholder="rč/ič" type="text" formControlName="einBn">
+                <mat-error *ngIf="searchForm.controls.einBn.invalid && searchForm.controls.einBn.touched">Neznámý
+                        formát</mat-error>
+            </mat-form-field>
+        </td>
+        <td>
+            <mat-form-field class="items">
+                <input matInput placeholder="Jméno" type="text" formControlName="clientName">
+                <mat-error *ngIf="searchForm.controls.clientName.invalid && searchForm.controls.clientName.touched">Neznámý
+                        formát</mat-error>
+            </mat-form-field>
+        </td>
+        <td><button mat-button type="submit">Hledat</button></td>
+    </tr></div>
+</form>
+
+<div *ngIf="this.foundDocumet != undefined" class="white">
+    <div>
+            <searchResult [documents] ="this.foundDocumet"></searchResult>
+    </div>
+</div>
+
+
+
+  
+  
