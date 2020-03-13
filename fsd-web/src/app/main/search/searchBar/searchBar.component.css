@@ -1,0 +1,14 @@
+.searchBar {
+
+}
+
+mat-form-field {
+    margin-right: 12px;
+  }
+  .example-full-width {
+    width: 80%;
+  }
+  .example-half-width{
+    width: 40%;
+  }
+  

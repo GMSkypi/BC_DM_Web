@@ -1,0 +1,101 @@
+
+  <div *ngIf="this.dataSource != undefined" class="white">
+  
+
+  <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()"
+                        [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)"
+                        [aria-label]="checkboxLabel(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+  
+
+    <ng-container matColumnDef="loc">
+      <th mat-header-cell *matHeaderCellDef> Lokalita </th>
+      <td mat-cell *matCellDef="let element"> <div *ngIf="element.archRecord === null; else notShow">{{element.slot.location.id}}</div> 
+        <ng-template #notShow>{{element.archRecord.archBox.location.id}}</ng-template>
+      </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="block">
+      <th mat-header-cell *matHeaderCellDef> Blokován </th>
+      <td mat-cell *matCellDef="let element"> {{element.blocked}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="number">
+      <th mat-header-cell *matHeaderCellDef> Pozice </th>
+      <td mat-cell *matCellDef="let element"> <div *ngIf="element.archRecord === null; else notShow">{{element.slot.number}}</div> 
+        <ng-template #notShow>----</ng-template>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef> Typ </th>
+      <td mat-cell *matCellDef="let element"> {{element.folderType.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="numberInBox">
+      <th mat-header-cell *matHeaderCellDef> Pozice v krabici </th>
+      <td mat-cell *matCellDef="let element"> <div *ngIf="element.archRecord; else notShow">{{element.archRecord.numberInBox}}</div>
+        <ng-template #notShow>----</ng-template>
+      </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="box_id">
+      <th mat-header-cell *matHeaderCellDef> Číslo kirabice </th>
+      <td mat-cell *matCellDef="let element">  <div *ngIf="element.archRecord; else notShow">{{element.archRecord.archBox.id}}</div> 
+        <ng-template #notShow>----</ng-template>
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="state">
+      <th mat-header-cell *matHeaderCellDef> Krab. Uzavřena </th>
+      <td mat-cell *matCellDef="let element"> <div *ngIf="element.archRecord; else notShow">{{element.archRecord.archBox.state}}</div> 
+        <ng-template #notShow>----</ng-template>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="archif">
+      <th mat-header-cell *matHeaderCellDef> Archyvována </th>
+      <td mat-cell *matCellDef="let element"> <div *ngIf="element.archRecord; else notShow">True</div> 
+        <ng-template #notShow>False</ng-template>
+      </td>
+    </ng-container>
+
+    
+
+  
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element" [attr.colspan]="columToDisplay.length">
+        <div class="example-element-detail"
+             [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+             <h2>awd</h2>
+        </div>
+      </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="columToDisplay"></tr>
+    <tr mat-row *matRowDef="let element; columns: columToDisplay;"
+        class="example-element-row"
+        [class.example-expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+  
+    </table>
+
+</div>

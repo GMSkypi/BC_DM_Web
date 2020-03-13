@@ -1,0 +1,82 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+    <div class="ui-serch-bar-form" cellspacing="0"><tr>
+        <td>
+            <mat-form-field class="items">
+                <input matInput placeholder="Účet" type="text" formControlName="account">
+                <mat-error *ngIf="searchForm.controls.account.invalid && searchForm.controls.account.touched">Neznámý
+                        formát</mat-error>
+            </mat-form-field>
+        </td>
+        <td>
+            <mat-form-field class="items">
+                <input matInput placeholder="KBID" type="text" formControlName="kbi" >
+                <mat-error *ngIf="searchForm.controls.kbi.invalid && searchForm.controls.kbi.touched">Neznámý
+                        formát</mat-error>
+            </mat-form-field>
+        </td>
+        <td>
+            <mat-form-field class="items">
+                <input matInput placeholder="rč/ič" type="text" formControlName="einBn">
+                <mat-error *ngIf="searchForm.controls.einBn.invalid && searchForm.controls.einBn.touched">Neznámý
+                        formát</mat-error>
+            </mat-form-field>
+        </td>
+        <td>
+            <mat-form-field class="items">
+                <input matInput placeholder="Jméno" type="text" formControlName="clientName">
+                <mat-error *ngIf="searchForm.controls.clientName.invalid && searchForm.controls.clientName.touched">Neznámý
+                        formát</mat-error>
+            </mat-form-field>
+        </td>
+        <td><button (click)=handleFind()>Hledat</button></td>
+        <td><button [disabled]="buttonDisabled" (click)=handleCreate()>Vytvořit novou složku</button></td>
+        <td><button [disabled]="buttonDisabled" (click)=handleCreate()>Rovnou archivovat</button></td>
+    </tr></div>
+</form>
+
+<mat-form-field>
+    <mat-label>Font size</mat-label>
+    <mat-select #fontSize value="16px" >
+      <mat-option value="10px">10px</mat-option>
+      <mat-option value="12px">12px</mat-option>
+      <mat-option value="14px">14px</mat-option>
+      <mat-option value="16px">16px</mat-option>
+      <mat-option value="18px">18px</mat-option>
+      <mat-option value="20px">20px</mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <mat-form-field class="example-full-width">
+    <mat-label>Leave a comment</mat-label>
+    <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+  </mat-form-field>
+  
+
+
+  <mat-form-field>
+    <mat-label>Font size</mat-label>
+    <mat-select #fontSize value="16px" >
+      <mat-option value="10px">10px</mat-option>
+      <mat-option value="12px">12px</mat-option>
+      <mat-option value="14px">14px</mat-option>
+      <mat-option value="16px">16px</mat-option>
+      <mat-option value="18px">18px</mat-option>
+      <mat-option value="20px">20px</mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <mat-form-field class="example-half-width">
+    <mat-label>Leave a comment</mat-label>
+    <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+  </mat-form-field>
+  <mat-form-field class="example-half-width">
+    <mat-label>Leave a comment</mat-label>
+    <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+  </mat-form-field>
+  
+<div *ngIf="this.foundDocumet != undefined" class="white">
+    <div>
+            <searchResult [documents] ="this.foundDocumet" (outputSelection) = "loadSelection($event)"></searchResult>
+    </div>
+</div>
+
