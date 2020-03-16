@@ -2,11 +2,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { HttpService } from 'src/app/http.service';
-import { Product } from '../searchResult/searchResult.component';
+import { Product, SearchResultComponent } from '../searchResult/searchResult.component';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 
+enum displayState {none = 1,selected = 2, createDocArch = 3, createDocFile = 4}
 
 
 @Component({
@@ -15,6 +16,7 @@ import { Router } from '@angular/router';
 	styleUrls: ['searchBar.component.css']
 })
 export class SearchBarComponent implements OnInit {
+
 	
 	constructor(private httpService : HttpService,
 		private http: HttpClient,
@@ -26,10 +28,16 @@ export class SearchBarComponent implements OnInit {
 	onlyNumber = "^[0-9]*$";
 
 	foundDocumet: Product[];
+
+	displayDocument: Product[];
+
+
 	totalNumber : number;
 	selectedProduct: Product[];
 
 	buttonDisabled : boolean = true;
+
+	displayStateValue : displayState = displayState.none;
 	
 
 	ngOnInit() {
@@ -51,28 +59,46 @@ export class SearchBarComponent implements OnInit {
 		
 	 }
 	 loadSelection($event){
-		this.selectedProduct = $event;
-		this.selectedProduct.length != 0 ? this.buttonDisabled = false  : this.buttonDisabled = true
+		
+		if(this.displayStateValue == displayState.none || this.displayStateValue == displayState.selected ){
+			this.selectedProduct = $event;
+			this.selectedProduct.length != 0 ? this.displayStateValue = displayState.selected  : this.displayStateValue = displayState.none
+		}
+	 }
+	 defaultState($event){
+		this.displayStateValue = displayState.none
+		this.displayDocument = this.foundDocumet;
 		
 	 }
 
-	 handleCreate(){
-		this.buttonDisabled = true;
-		console.log(this.selectedProduct)
+	 handleCreateWArch(){
+		this.displayStateValue = displayState.createDocArch
+		this.displayDocument = this.selectedProduct
+		
+		
 	}
+	handleCreateWSlot(){
+		this.displayStateValue = displayState.createDocFile
+		this.displayDocument = this.selectedProduct
+		
+	}
+	
+
+
 	handleFind(){
 		if(this.searchForm.valid){
-			console.log("valid");
 			this.httpService.productFind(this.searchForm.value).subscribe(data => {
 				console.log(data);
 				this.foundDocumet = data.body.elements;
 				this.totalNumber = data.body.elementsCount;
+				this.displayDocument = this.foundDocumet;
 			});
 			 
 		 }
 		 else{
 			 console.log("invalid");
 		 }
+		 
 	}
 
 }

@@ -1,9 +1,10 @@
 
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpHeaders } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from './login/authentication.service';
 import { HttpService } from './http.service';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {

@@ -34,7 +34,8 @@ export class GuardService implements CanActivate {
             return false;
           }
           console.log(error)
-          return true;
+          this.router.navigate(['login']);
+          return false;
           })
     }
     

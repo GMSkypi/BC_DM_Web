@@ -1,4 +1,5 @@
-<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+<div *ngIf="this.displayStateValue === 2 || this.displayStateValue === 1">
+  <form [formGroup]="searchForm"  >
     <div class="ui-serch-bar-form" cellspacing="0"><tr>
         <td>
             <mat-form-field class="items">
@@ -29,54 +30,20 @@
             </mat-form-field>
         </td>
         <td><button (click)=handleFind()>Hledat</button></td>
-        <td><button [disabled]="buttonDisabled" (click)=handleCreate()>Vytvořit novou složku</button></td>
-        <td><button [disabled]="buttonDisabled" (click)=handleCreate()>Rovnou archivovat</button></td>
+        <td><button [disabled]="displayStateValue !== 2" (click)=handleCreateWSlot()>Vytvořit novou složku</button></td>
+        <td><button [disabled]="displayStateValue !== 2" (click)=handleCreateWArch()>Rovnou archivovat</button></td>
     </tr></div>
-</form>
-
-<mat-form-field>
-    <mat-label>Font size</mat-label>
-    <mat-select #fontSize value="16px" >
-      <mat-option value="10px">10px</mat-option>
-      <mat-option value="12px">12px</mat-option>
-      <mat-option value="14px">14px</mat-option>
-      <mat-option value="16px">16px</mat-option>
-      <mat-option value="18px">18px</mat-option>
-      <mat-option value="20px">20px</mat-option>
-    </mat-select>
-  </mat-form-field>
-  
-  <mat-form-field class="example-full-width">
-    <mat-label>Leave a comment</mat-label>
-    <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
-  </mat-form-field>
-  
+  </form>
+</div>
 
 
-  <mat-form-field>
-    <mat-label>Font size</mat-label>
-    <mat-select #fontSize value="16px" >
-      <mat-option value="10px">10px</mat-option>
-      <mat-option value="12px">12px</mat-option>
-      <mat-option value="14px">14px</mat-option>
-      <mat-option value="16px">16px</mat-option>
-      <mat-option value="18px">18px</mat-option>
-      <mat-option value="20px">20px</mat-option>
-    </mat-select>
-  </mat-form-field>
+<div *ngIf="displayStateValue === 4"><crtDocFBar (break) = "defaultState($event)" [selected] = "this.selectedProduct[0]"></crtDocFBar></div>
+<div *ngIf="displayStateValue === 3"> <crtDocABar (break) = "defaultState($event)" [selected] = "this.selectedProduct[0]"></crtDocABar></div>
   
-  <mat-form-field class="example-half-width">
-    <mat-label>Leave a comment</mat-label>
-    <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
-  </mat-form-field>
-  <mat-form-field class="example-half-width">
-    <mat-label>Leave a comment</mat-label>
-    <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
-  </mat-form-field>
-  
-<div *ngIf="this.foundDocumet != undefined" class="white">
+
+<div *ngIf="this.foundDocumet !== undefined" class="white">
     <div>
-            <searchResult [documents] ="this.foundDocumet" (outputSelection) = "loadSelection($event)"></searchResult>
+            <searchResult [documents] ="this.displayDocument" (outputSelection) = "loadSelection($event)"></searchResult>
     </div>
 </div>
 

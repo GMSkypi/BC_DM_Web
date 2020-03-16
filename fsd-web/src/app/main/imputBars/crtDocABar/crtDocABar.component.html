@@ -1,0 +1,23 @@
+  <mat-form-field>
+    <mat-label>Font size</mat-label>
+    <mat-select #fontSize value="16px" >
+      <mat-option value="10px">10px</mat-option>
+      <mat-option value="12px">12px</mat-option>
+      <mat-option value="14px">14px</mat-option>
+      <mat-option value="16px">16px</mat-option>
+      <mat-option value="18px">18px</mat-option>
+      <mat-option value="20px">20px</mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <mat-form-field class="example-half-width">
+    <mat-label>Leave a comment</mat-label>
+    <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+  </mat-form-field>
+  <mat-form-field class="example-half-width">
+    <mat-label>Leave a comment</mat-label>
+    <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+  </mat-form-field>
+  
+  <td><button >Potvrdit</button></td>
+  <td><button (click)="cancel()">Zrušit</button></td>

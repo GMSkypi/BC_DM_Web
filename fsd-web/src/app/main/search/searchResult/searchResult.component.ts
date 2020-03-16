@@ -31,6 +31,7 @@ export class SearchResultComponent implements OnInit {
 	ngOnChanges(changes: SimpleChanges){
 		console.log(this.dataSource);
 		this.dataSource = new MatTableDataSource<Product>(changes.documents.currentValue)
+		this.clearSelection()
 	}
 
 
@@ -45,9 +46,18 @@ export class SearchResultComponent implements OnInit {
 		this.selection.clear()
 		this.outputSelection.emit(this.selection.selected)
 	  }
-	  unselectAllExcept(row){
+	  handleSelection(row){
+		  if(this.selection.isSelected(row)){
+			this.clearSelection()
+		  }
+		  else{
+			this.selection.clear()
+			this.selection.select(row)
+			this.outputSelection.emit(this.selection.selected)
+		  }
+	  }
+	  clearSelection(){
 		this.selection.clear()
-		this.selection.select(row)
 		this.outputSelection.emit(this.selection.selected)
 	  }
 	

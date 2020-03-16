@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserService, UserDetail } from './login/user.service';
 import { Product, Pagable } from './main/search/searchResult/searchResult.component';
+import { Slot } from './main/imputBars/crtDocFBar/crtDocFBar.component';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class HttpService {
   logoutUrl = '/logout'
   tryloginUrl = '/isauthorized'
   productFindUrl = '/product/productinfo/'
+  freeSlotUrl = '/folder/findfreefolder/'
 
   constructor (private http : HttpClient) { }
 
@@ -33,5 +35,8 @@ export class HttpService {
   }
   productFind(requestBody){
     return this.http.post<Pagable<Product>>(this.getUrl(this.productFindUrl) + '?page=0&size=10&sortDir=asc&sort=id',requestBody,{withCredentials: true,observe: 'response'} )
+  }
+  freeSlot(applCode : number){
+    return this.http.get<Pagable<Slot>>(this.getUrl(this.freeSlotUrl) + '?applcode=' + applCode + '&page=0&size=10&sortDir=asc&sort=id',{withCredentials: true,observe: 'response'})
   }
 }

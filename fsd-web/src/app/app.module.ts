@@ -31,6 +31,10 @@ import {
   MatSelectModule
 } from '@angular/material';
 import { ExpadnColumnComponent } from './main/search/searchResult/expadnColumn/expadnColumn.component';
+import { CrtDocFBarComponent } from './main/imputBars/crtDocFBar/crtDocFBar.component';
+import { CrtDocABarComponent } from './main/imputBars/crtDocABar/crtDocABar.component';
+import { SessionExpiredInterceptor } from './sessionExpiredInterceptor.service';
+
 
 
 
@@ -44,6 +48,9 @@ import { ExpadnColumnComponent } from './main/search/searchResult/expadnColumn/e
     SearchBarComponent,
     SearchResultComponent,
     ExpadnColumnComponent,
+    CrtDocABarComponent,
+    CrtDocFBarComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -72,6 +79,11 @@ import { ExpadnColumnComponent } from './main/search/searchResult/expadnColumn/e
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
+      multi: true
+    } ,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SessionExpiredInterceptor,
       multi: true
     } ,
     AuthenticationService, GuardService

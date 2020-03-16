@@ -1,0 +1,20 @@
+<mat-form-field>
+  <mat-label>Volná složka</mat-label>
+  <mat-select [(ngModel)]=selectedSlotId>
+    <mat-option *ngFor="let slot of this.freeSlots" [value]="slot.id">
+     Pozice: {{slot.folder_number}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+
+
+<mat-form-field class="example-full-width">
+  <mat-label>Poznámka k dokumentu</mat-label>
+  <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+</mat-form-field>
+
+<td><button (click)="summit()">Potvrdit</button></td>
+<td><button (click)="cancel()">Zrušit</button></td>
+
+  <a>Vytvoření složky</a>

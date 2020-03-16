@@ -4,20 +4,21 @@
     <!-- Checkbox Column -->
     <ng-container matColumnDef="select">
       <th mat-header-cell *matHeaderCellDef>
-        <mat-checkbox (change)="$event ? masterToggle() : null"
-                      [checked]="selection.hasValue() && !isAllSelected()"
-                      [indeterminate]="selection.hasValue() && !isAllSelected()"
+        <mat-checkbox (change)="selection.hasValue() ? masterToggle() : null"
+                      [checked]="selection.hasValue() "
+                      [indeterminate]="selection.hasValue()"
                       [aria-label]="checkboxLabel()">
         </mat-checkbox>
       </th>
       <td mat-cell *matCellDef="let row">
         <mat-checkbox (click)="$event.stopPropagation()"
-                      (change)="$event ? unselectAllExcept(row) : null"
+                      (change)="handleSelection(row)"
                       [checked]="selection.isSelected(row)"
                       [aria-label]="checkboxLabel(row)">
         </mat-checkbox>
       </td>
     </ng-container>
+
 
    <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> účet </th>
