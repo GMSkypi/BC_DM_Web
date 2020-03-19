@@ -34,6 +34,9 @@ import { ExpadnColumnComponent } from './main/search/searchResult/expadnColumn/e
 import { CrtDocFBarComponent } from './main/imputBars/crtDocFBar/crtDocFBar.component';
 import { CrtDocABarComponent } from './main/imputBars/crtDocABar/crtDocABar.component';
 import { SessionExpiredInterceptor } from './sessionExpiredInterceptor.service';
+import { ArchBoxComponent } from './main/archBox/archBox.component';
+import { FolderManipulationComponent } from './main/folderManipulation/folderManipulation.component';
+import { DetailProductInfoComponent } from './main/search/searchResult/expadnColumn/detailProductInfo/detailProductInfo.component';
 
 
 
@@ -50,6 +53,9 @@ import { SessionExpiredInterceptor } from './sessionExpiredInterceptor.service';
     ExpadnColumnComponent,
     CrtDocABarComponent,
     CrtDocFBarComponent,
+    ArchBoxComponent,
+    FolderManipulationComponent,
+    DetailProductInfoComponent,
 
   ],
   imports: [

@@ -70,6 +70,13 @@ export class SearchBarComponent implements OnInit {
 		this.displayDocument = this.foundDocumet;
 		
 	 }
+	 reloadProduct($event){
+		debugger
+		this.displayDocument = [$event];
+		this.foundDocumet = this.foundDocumet.filter(product => product.id !== $event.id)
+		this.foundDocumet.push($event)
+		
+	 }
 
 	 handleCreateWArch(){
 		this.displayStateValue = displayState.createDocArch

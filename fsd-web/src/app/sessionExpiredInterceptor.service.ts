@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpHeaders, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { HttpService } from './http.service';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable()
 export class SessionExpiredInterceptor implements HttpInterceptor {
@@ -10,16 +11,15 @@ export class SessionExpiredInterceptor implements HttpInterceptor {
     constructor(private httpService : HttpService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        
         return next.handle(req).pipe(
-            tap(
-              error => {
-                //logging the http response to browser's console in case of a failuer
-                if (event instanceof HttpResponse) {
-                  console.log("api call error :", event);
+            tap(evt => {
+                
+            }),
+            catchError((error: any) => {
+                if(error instanceof HttpErrorResponse) {
+                    console.log(error.error.message)
                 }
-              }
-            )
-          );
+                return throwError(error);
+            }));
     }
 }

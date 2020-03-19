@@ -1,0 +1,57 @@
+<div> 
+    <h3> Produkt </h3>
+    <body>
+        <p>číslo účtu: {{product.id}} </p>
+        <p>pobočka: {{product.branchCode}}</p>
+        <p>založeno: {{product.created}}</p>
+        <p>expirace: {{product.expired}}</p>
+    </body>
+    <h3> Klient Produktu </h3>
+    <body>
+        <p>rodné číslo / ičo: {{product.client.passId}}</p>
+        <p>pobočka: {{product.client.homeBranch}}</p>
+        <p>jméno: {{product.client.name}}</p>
+        <p>titul: {{product.client.title}}</p>
+    </body>
+    <h3> Dokuemnt </h3>
+    <body>
+        <p>poznámka: {{document.note}}</p>
+        <p>typ: {{document.folderType.text}}</p>
+        <p>Blokován: {{document.isBlocked}}</p>
+    </body>
+    <h3> Klient dokumentu </h3>
+    <body>
+        <p>rodné číslo / ičo: {{document.client.passId}}</p>
+        <p>pobočka: {{document.client.homeBranch}}</p>
+        <p>jméno: {{document.client.name}}</p>
+        <p>titul: {{document.client.title}}</p>
+    </body>
+    <div *ngIf= "document.slot !== null && !document.slot.archived">
+        <h3> Složka </h3>
+        <body>
+            <p>lokalita: {{document.slot.location.name}}</p>
+            <p>kod lokality: {{document.slot.location.name.branchCode}}</p>
+            <p>pozice: {{document.slot.number}}</p>
+            <p>řada: {{document.folderType.id}}</p>
+            <p>poznámka: {{document.slot.note}}</p>
+        </body>
+    </div>
+    <div *ngIf= "document.archRecord !== null">
+        <h3> Archyvováno </h3>
+        <body>
+            <p>pořadové číslo: {{document.archRecord.pnumberInBox}}</p> 
+            <p>číslo krabice: {{document.archRecord.archBox.id}}</p>
+            <p>datum archivace: {{document.archRecord.archBox.archDate}}</p>     
+            <p>poznámka: {{document.archRecord.archBox.note}}</p>     
+            <p>otevřená: {{document.archRecord.archBox.state}}</p>     
+            <p>skartovací kod: {{document.archRecord.archBox.shredCode.text}}</p>    
+            <p>datum odeslání: {{document.archRecord.archBox.sendDate}}</p>    
+            <p>zakladatel: {{document.archRecord.archBox.creator}}</p> 
+            <p>odesilatel: {{document.archRecord.archBox.sender}}</p> 
+        </body>
+    </div>
+    
+</div>
+
+
+

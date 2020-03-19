@@ -8,13 +8,18 @@
 </mat-form-field>
 
 
-
 <mat-form-field class="example-full-width">
   <mat-label>Poznámka k dokumentu</mat-label>
-  <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+  <textarea matInput [(ngModel)] = "docNote"></textarea>
+</mat-form-field>
+
+<mat-form-field class="example-full-width">
+  <mat-label>Poznámka k složce</mat-label>
+  <textarea matInput [(ngModel)] = "folderNote"></textarea>
 </mat-form-field>
 
 <td><button (click)="summit()">Potvrdit</button></td>
 <td><button (click)="cancel()">Zrušit</button></td>
 
   <a>Vytvoření složky</a>
+  <a>{{message}}</a>

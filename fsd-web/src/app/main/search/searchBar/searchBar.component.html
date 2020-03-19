@@ -37,13 +37,26 @@
 </div>
 
 
-<div *ngIf="displayStateValue === 4"><crtDocFBar (break) = "defaultState($event)" [selected] = "this.selectedProduct[0]"></crtDocFBar></div>
-<div *ngIf="displayStateValue === 3"> <crtDocABar (break) = "defaultState($event)" [selected] = "this.selectedProduct[0]"></crtDocABar></div>
+<div *ngIf="displayStateValue === 4">
+    <crtDocFBar 
+        (break) = "defaultState($event)" 
+        [selected] = "this.selectedProduct[0]"
+        (modifProduct) = "reloadProduct($event)">
+    </crtDocFBar>
+</div>
+
+<div *ngIf="displayStateValue === 3"> 
+    <crtDocABar 
+        (break) = "defaultState($event)" 
+        (modifProduct) = "reloadProduct($event)" 
+        [selected] = "this.selectedProduct[0]">
+    </crtDocABar>
+</div>
   
 
 <div *ngIf="this.foundDocumet !== undefined" class="white">
     <div>
-            <searchResult [documents] ="this.displayDocument" (outputSelection) = "loadSelection($event)"></searchResult>
+            <searchResult [documents] ="this.displayDocument" [extended] = "true" (outputSelection) = "loadSelection($event)"></searchResult>
     </div>
 </div>
 

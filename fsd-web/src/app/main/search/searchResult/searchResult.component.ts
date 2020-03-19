@@ -18,12 +18,14 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 
 export class SearchResultComponent implements OnInit {
 	@Input() documents: Array<Product>;
-
+	@Input() extended : boolean;
 	
 	columToDisplay: string[] = [ 'select','id', 'name','title','passId','homeBranch','productTypeCode', 'branchCode', 'created','expired',];
 	expandedElement: Product | null;
 	dataSource = new MatTableDataSource<Product>(this.documents);
 	selection = new SelectionModel<Product>(true, []);
+
+	
 	@Output() outputSelection = new EventEmitter<Product[]>();
 
 	ngOnInit() {
@@ -112,7 +114,7 @@ export class Location{
 
     name: String;
 
-    branchCode: number;
+    branchCode: number;product
 
     creatDate: Date;
 

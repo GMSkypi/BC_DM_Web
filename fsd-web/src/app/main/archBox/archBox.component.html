@@ -1,0 +1,118 @@
+<div *ngIf="displayStateVal === 0">
+    <div>
+        <td>
+            <mat-checkbox [(ngModel)]="findOpenCheckBox" >Uzavřené / Otevřené</mat-checkbox>
+        </td>
+        <td><button (click) = "findAllBoxes()" >Vyhledat všechny krabice</button></td>
+        <td><button (click)= "deleteBox()" [disabled]="selectedStateVal !== 1">Smazat krabici</button></td>
+        <td><button (click)= "insideBox()" [disabled]="selectedStateVal === 0">Dokumenty v krabici</button></td>
+        <td><button (click) = "closeBox()" [disabled]="selectedStateVal !== 1">Zavřít krabici</button></td>
+        
+    </div>
+    
+    <div>
+        <td>
+            <mat-form-field>
+                <mat-label>Skartovací kody</mat-label>
+                <mat-select [(ngModel)]=selectedShredCodeId>
+                  <mat-option *ngFor="let code of this.shredCodes" [value]="code.id">
+                   Kod: {{code.id}} : {{code.text}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+        </td>
+        
+        <td>
+            <mat-form-field class="example-full-width">
+                <mat-label>Poznámka ke krabici</mat-label>
+                <textarea matInput [(ngModel)] = "boxNote"></textarea>
+              </mat-form-field>
+        </td>
+    
+          <td><button (click)="createBox()" >Vytvořit krabici</button></td>
+    </div>
+    <a>{{message}}</a>
+    <table mat-table [dataSource]="dataSource" >
+    
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="selection.hasValue() ? masterToggle() : null"
+                          [checked]="selection.hasValue() "
+                          [indeterminate]="selection.hasValue()"
+                          [aria-label]="checkboxLabel()">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()"
+                          (change)="handleSelection(row)"
+                          [checked]="selection.isSelected(row)"
+                          [aria-label]="checkboxLabel(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+    
+    
+       <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> číslo </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="archDate">
+          <th mat-header-cell *matHeaderCellDef> založena </th>
+          <td mat-cell *matCellDef="let element"> {{element.archDate}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="note">
+          <th mat-header-cell *matHeaderCellDef> Poznámka </th>
+          <td mat-cell *matCellDef="let element"> {{element.note}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="state">
+          <th mat-header-cell *matHeaderCellDef> Stav </th>
+          <td mat-cell *matCellDef="let element"> {{element.state}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="sendDate">
+          <th mat-header-cell *matHeaderCellDef> Odeslána </th>
+          <td mat-cell *matCellDef="let element"> {{element.sendDate}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="shredCode">
+          <th mat-header-cell *matHeaderCellDef> Kod </th>
+          <td mat-cell *matCellDef="let element"> {{element.shredCode.id}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="location">
+          <th mat-header-cell *matHeaderCellDef> lokalita </th>
+          <td mat-cell *matCellDef="let element"> {{element.location.id}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="creator">
+          <th mat-header-cell *matHeaderCellDef> Vytvořil </th>
+          <td mat-cell *matCellDef="let element"> {{element.creator}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="sender">
+          <th mat-header-cell *matHeaderCellDef> Odeslal </th>
+          <td mat-cell *matCellDef="let element"> {{element.sender}} </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="columToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columToDisplay;"
+            (click)="handleSelection(row)">
+        </tr>
+    
+      </table>
+</div>
+
+<div *ngIf="displayStateVal === 1">
+    <td><button (click)= "back()">Vratit se</button></td>
+
+    <div *ngIf="this.foundDocumet !== undefined" class="white">
+        <div>
+                <searchResult [documents] ="this.foundDocumet" [extended] = "false" ></searchResult>
+        </div>
+    </div>
+
+</div>

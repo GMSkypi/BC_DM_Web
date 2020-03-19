@@ -1,7 +1,15 @@
 
-  <div *ngIf="this.dataSource != undefined" class="white">
-  
+<div *ngIf="this.dataSource != undefined" class="white">
 
+  <div *ngIf="this.extended === true">
+    <button>Blokovat</button>
+    <button>Vypujčit</button>
+    <button>Vrátit</button>
+    <button>Archyvovat</button>
+    <button>Log</button>
+  </div>
+ 
+  
   <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
 
       <!-- Checkbox Column -->
@@ -83,7 +91,8 @@
       <td mat-cell *matCellDef="let element" [attr.colspan]="columToDisplay.length">
         <div class="example-element-detail"
              [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-             <h2>awd</h2>
+
+             <detailProductInfo [document] ="this.element" [product] = "this.product" ></detailProductInfo>
         </div>
       </td>
     </ng-container>
@@ -96,6 +105,6 @@
     </tr>
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
   
-    </table>
+  </table>
 
 </div>

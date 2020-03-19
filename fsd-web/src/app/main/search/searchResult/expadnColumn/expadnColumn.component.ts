@@ -18,7 +18,8 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 
 export class ExpadnColumnComponent implements OnInit {
 	@Input() product: Product;
-
+	@Input() extended : boolean;
+	
 	columToDisplay: string[] = [ 'select','loc', 'block', 'number', 'type','archif','numberInBox','box_id','state'];
 	expandedElement: Product | null;
 	dataSource :any;
