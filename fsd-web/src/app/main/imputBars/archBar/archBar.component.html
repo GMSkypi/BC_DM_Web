@@ -1,0 +1,16 @@
+<mat-form-field>
+    <mat-label>Krabice</mat-label>
+    <mat-select [(ngModel)]=selectedBoxdId>
+      <mat-option *ngFor="let box of this.boxes" [value]="box.id">
+       ID: {{box.id}} C: {{box.shredCode.id}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+    
+  <mat-form-field class="example-full-width">
+    <mat-label>Poznámka</mat-label>
+    <textarea matInput [(ngModel)] = "note"></textarea>
+  </mat-form-field>
+    
+    <td><button (click)="summit()">Potvrdit</button></td>
+    <td><button (click)="cancel()">Zrušit</button></td>

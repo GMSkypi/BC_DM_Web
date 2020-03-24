@@ -1,15 +1,13 @@
 import { Component, OnInit, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { HttpService } from 'src/app/http.service';
-import { ArchBox, Product } from '../search/searchResult/searchResult.component';
-import { MatTableDataSource } from '@angular/material';
+import { ArchBox, Product, ShredCode } from '../search/searchResult/searchResult.component';
+import { MatTableDataSource, MatDialog, MatSnackBar } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ThrowStmt } from '@angular/compiler';
+import { SnackBarComponent } from 'src/popUp/snackBar/snackBar.component';
+import { ErrorPopUpComponent } from 'src/popUp/errorPopUp/errorPopUp.component';
 
-export class ShredCode{
-	id: String;
 
-    text: String;
-}
 enum selectedState {none = 0 ,redy = 1,closed = 2,}
 
 enum displayState {search = 0 , inside = 1}
@@ -35,10 +33,12 @@ export class ArchBoxComponent implements OnInit {
 
 	columToDisplay: string[] = [ 'select','id', 'archDate','note','state','sendDate','shredCode','location', 'creator', 'sender',];
 
-	private message : String = "";
 
 	ngOnInit() {this.loadShredCodes() }
-	constructor(private httpService : HttpService,){}
+
+		constructor(private httpService : HttpService,
+		public dialog: MatDialog,
+		private _snackBar: MatSnackBar){}
 
 
 	ngOnChanges(changes: SimpleChanges){
@@ -57,7 +57,6 @@ export class ArchBoxComponent implements OnInit {
 		this.httpService.findBoxes(this.findOpenCheckBox).subscribe(data => {
 			this.boxes = data.body.elements
 			this.dataSource = new MatTableDataSource<ArchBox>(this.boxes);
-			this.message = ""
 		})
 		this.selection.clear();
 	}
@@ -66,14 +65,16 @@ export class ArchBoxComponent implements OnInit {
 			if(data.status == 200){
 				this.boxes.push(data.body)
 				this.dataSource = new MatTableDataSource<ArchBox>(this.boxes);
-				this.message = "Krabice byla vytvořena"
+				this._snackBar.openFromComponent(SnackBarComponent, {
+					duration: 5 * 1000, data: {name: "", text: "Krabice byla vytvořena",} 
+				  });
 			}
 			else{
-				this.message = "Krabice nemohla být vytvořena: "  + data.statusText
-				console.log(data.statusText)
+				const dialogRef = this.dialog.open(ErrorPopUpComponent,  {
+					data: {name: "Vytvoření krabice",
+					 text: "Krabice nemohla být vytvořena",
+					  values: [data.statusText]}})
 			}
-
-			
 		})
 	}
 	deleteBox(){
@@ -83,16 +84,22 @@ export class ArchBoxComponent implements OnInit {
 					this.boxes = this.boxes.filter(box => box.id !== this.selection.selected[0].id)
 					this.clearSelection()
 					this.dataSource = new MatTableDataSource<ArchBox>(this.boxes);
-					this.message = "Krabice je smazána"
+					this._snackBar.openFromComponent(SnackBarComponent, {
+						duration: 5 * 1000, data: {name: "", text: "Krabice byla smazána",} 
+					  });
 				}
 				else{
-					this.message = "Krabice nemohla být smazána: "  + data.statusText
-					console.log(data.statusText)
+					const dialogRef = this.dialog.open(ErrorPopUpComponent,  {
+						data: {name: "Smazání krabice",
+						 text: "Krabice nemohla být smazána",
+						  values: [data.statusText]}})
 				}
 			})
 		}
 		else{
-			this.message = "Nevybrali jste žádnou krabici" 
+			this._snackBar.openFromComponent(SnackBarComponent, {
+				duration: 5 * 1000, data: {name: "VAROVÁNÍ:", text: "Nevybrali jste žádnou krabici",} 
+			  });
 		}
 	}
 	closeBox(){
@@ -103,14 +110,23 @@ export class ArchBoxComponent implements OnInit {
 					this.clearSelection()
 					this.boxes.push(data.body)
 					this.dataSource = new MatTableDataSource<ArchBox>(this.boxes);
-					this.message = "Krabice je uzavřena"
+					this._snackBar.openFromComponent(SnackBarComponent, {
+						duration: 5 * 1000, data: {name: "", text: "Krabice je uzavřena",} 
+					  });
 				}
 				else{
-					this.message = "Krabice nemohla být uzavřena: "  + data.statusText
-					console.log(data.statusText)
+					const dialogRef = this.dialog.open(ErrorPopUpComponent,  {
+						data: {name: "Uzavřena krabice",
+						 text: "Krabice nemohla být uzavřena",
+						  values: [data.statusText]}})
 				}
 				
 			});
+		}
+		else{
+			this._snackBar.openFromComponent(SnackBarComponent, {
+				duration: 5 * 1000, data: {name: "VAROVÁNÍ:", text: "Nevybrali jste žádnou krabici",} 
+			  });
 		}
 	}
 	insideBox(){

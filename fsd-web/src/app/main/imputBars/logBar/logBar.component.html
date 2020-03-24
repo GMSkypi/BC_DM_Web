@@ -1,0 +1,22 @@
+<td><button (click)="cancel()">Zrušit</button></td>
+
+<table >
+    <tr>
+      <th mat-header="name">Akce</th>
+      <th mat-header="calories">Uživatel</th>
+      <th mat-header="fat">Datum</th>
+      <th mat-header="carbs">Poznámka</th>
+      <th mat-header="protein">Kancelář</th>
+      <th mat-header="protein">Místnost</th>
+    </tr>
+  
+    <tr *ngFor="let log of this.foundLog">
+      <td>{{log.action}}</td>
+      <td>{{log.user}}</td>
+      <td>{{log.actionDate}}</td>
+      <td>{{log.note}}</td>
+      <td *ngIf="log.accessLog !== null">{{log.accessLog.officer}}</td>
+      <td *ngIf="log.accessLog !== null">{{log.accessLog.room}}</td>
+    </tr>
+  </table>
+  

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserService, UserDetail } from './login/user.service';
 import { Product, Pagable, ShredCode, ArchBox } from './main/search/searchResult/searchResult.component';
 import { Slot } from './main/imputBars/crtDocFBar/crtDocFBar.component';
+import { FolderLog } from './main/imputBars/logBar/logBar.component';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class HttpService {
 
   loginUrl = '/login'
   logoutUrl = '/logout'
+
   tryloginUrl = '/isauthorized'
   productFindUrl = '/product/productinfo/'
   freeSlotUrl = '/folder/findfreefolder/'
@@ -37,6 +39,8 @@ export class HttpService {
   findAllPickUpUrl = '/folderaction/findallpickedupdoc/'
 
   archiveDocumentUrl= '/document/archivedoc/'
+
+  findFolderLogUrl= '/document/log/'
 
 
   constructor (private http : HttpClient) { }
@@ -109,24 +113,24 @@ export class HttpService {
 
 
   archiveDocument(folderIds : Array<number>, boxId : number, archNote : String){
-    return this.http.patch(this.getUrl(this.archiveDocumentUrl) + "?boxid=" + boxId + "&archnode=" + archNote,
+    return this.http.patch<Product[]>(this.getUrl(this.archiveDocumentUrl) + "?boxid=" + boxId + "&archnode=" + archNote,
     folderIds,
     {withCredentials: true,observe: 'response'})
   }
 
 
   blocateFolder(folderIds : Array<number>, note : String, officer : String, room : String){
-    return this.http.patch(this.getUrl(this.blockFolderUrl) + "?note=" + note + "&officer=" + officer + "&room=" + room,
+    return this.http.patch<Product[]>(this.getUrl(this.blockFolderUrl) + "?note=" + note + "&officer=" + officer + "&room=" + room,
     folderIds,
     {withCredentials: true,observe: 'response'})
   }
   pickUpFolder(folderIds : Array<number>, note : String){
-    return this.http.patch(this.getUrl(this.pickUpFolderUrl) + "?note=" + note,
+    return this.http.patch<Product[]>(this.getUrl(this.pickUpFolderUrl) + "?note=" + note,
     folderIds,
     {withCredentials: true,observe: 'response'})
   }
   returnFolder(folderIds : Array<number>, note : String){
-    return this.http.patch(this.getUrl(this.returnFolderUrl) + "?note=" + note,
+    return this.http.patch<Product[]>(this.getUrl(this.returnFolderUrl) + "?note=" + note,
     folderIds,
     {withCredentials: true,observe: 'response'})
   }
@@ -142,6 +146,9 @@ export class HttpService {
   }
   findAllPickUp(){
     return this.http.get<Pagable<Product>>(this.getUrl(this.findAllPickUpUrl) + "?page=0&size=10&sortDir=asc&sort=id",{withCredentials: true,observe: 'response'})
+  }
+  findFolderLog(documentId : number){
+    return this.http.get<Pagable<FolderLog>>(this.getUrl(this.findFolderLogUrl) + "?documentid="+documentId+"&page=0&size=10&sortDir=asc&sort=id",{withCredentials: true,observe: 'response'})
   }
 
 }

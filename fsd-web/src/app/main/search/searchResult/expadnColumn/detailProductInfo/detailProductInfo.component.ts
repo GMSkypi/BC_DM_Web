@@ -10,5 +10,5 @@ export class DetailProductInfoComponent implements OnInit {
 	@Input() product: Product;
 	@Input() document: Document;
 
-	ngOnInit() { console.log(this.product)}
+	ngOnInit() {}
 }	

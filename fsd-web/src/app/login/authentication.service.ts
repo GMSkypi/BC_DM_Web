@@ -33,8 +33,8 @@ export class AuthenticationService {
   }
 
   logout() {
+    this.loggedInStatus = false
     return this.httpService.logout().toPromise().then((res) => {
-      this.loggedInStatus = false
       return true
     }).catch((error) => {
       console.log(error)

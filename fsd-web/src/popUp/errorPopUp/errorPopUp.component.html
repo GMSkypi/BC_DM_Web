@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Nastala chyba: {{data.name}}</h1>
+<div mat-dialog-content>
+  <p>{{data.text}}</p>
+  <tr *ngFor="let value of data.values">
+    <td>{{value}}</td>
+  </tr>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onClick()">Ok</button>
+</div>

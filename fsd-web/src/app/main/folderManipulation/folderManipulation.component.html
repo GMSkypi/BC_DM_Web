@@ -1,4 +1,8 @@
-<button>Vlastní blokace</button>
-<button>Lokální blokace</button>
-<button>Vlastní výpujčky</button>
-<button>Lokální výpujčky</button>
+<button (click) = "findOwnBlocation()">Vlastní blokace</button>
+<button (click) = "findAllBlocation()">Lokální blokace</button>
+<button (click) = "findOwnPickUp()">Vlastní výpujčky</button>
+<button (click) = "findAllPickUp()">Lokální výpujčky</button>
+
+<div *ngIf = "this.searchResult !== undefined">
+    <expadnColumn [product] ="this.searchResult" [extended] = "true" [removable] = "true"></expadnColumn>
+</div>

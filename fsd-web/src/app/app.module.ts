@@ -37,6 +37,14 @@ import { SessionExpiredInterceptor } from './sessionExpiredInterceptor.service';
 import { ArchBoxComponent } from './main/archBox/archBox.component';
 import { FolderManipulationComponent } from './main/folderManipulation/folderManipulation.component';
 import { DetailProductInfoComponent } from './main/search/searchResult/expadnColumn/detailProductInfo/detailProductInfo.component';
+import { BlocateBarComponent } from './main/imputBars/blocateBar/blocateBar.component';
+import { LogBarComponent } from './main/imputBars/logBar/logBar.component';
+import { PickUpBarComponent } from './main/imputBars/pickUpBar/pickUpBar.component';
+import { ReturnBarComponent } from './main/imputBars/returnBar/returnBar.component';
+import { ErrorPopUpComponent } from 'src/popUp/errorPopUp/errorPopUp.component';
+import { ArchBarComponent } from './main/imputBars/archBar/archBar.component';
+import { SnackBarComponent } from 'src/popUp/snackBar/snackBar.component';
+import { UnauthorizedPopUpComponent } from 'src/popUp/unauthorizedPopUp/unauthorizedPopUp.component';
 
 
 
@@ -56,6 +64,14 @@ import { DetailProductInfoComponent } from './main/search/searchResult/expadnCol
     ArchBoxComponent,
     FolderManipulationComponent,
     DetailProductInfoComponent,
+    BlocateBarComponent,
+    LogBarComponent,
+    PickUpBarComponent,
+    ReturnBarComponent,
+    ErrorPopUpComponent,
+    ArchBarComponent,
+    SnackBarComponent,
+    UnauthorizedPopUpComponent,
 
   ],
   imports: [
@@ -78,7 +94,8 @@ import { DetailProductInfoComponent } from './main/search/searchResult/expadnCol
     MatDatepickerModule,
     MatSnackBarModule, 
     MatCheckboxModule,
-    MatSelectModule
+    MatSelectModule,
+
     ],
   providers: [
 
@@ -95,6 +112,7 @@ import { DetailProductInfoComponent } from './main/search/searchResult/expadnCol
     AuthenticationService, GuardService
  
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ ErrorPopUpComponent , SnackBarComponent, UnauthorizedPopUpComponent]
 })
 export class AppModule { }

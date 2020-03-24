@@ -19,7 +19,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 export class SearchResultComponent implements OnInit {
 	@Input() documents: Array<Product>;
 	@Input() extended : boolean;
-	
+
 	columToDisplay: string[] = [ 'select','id', 'name','title','passId','homeBranch','productTypeCode', 'branchCode', 'created','expired',];
 	expandedElement: Product | null;
 	dataSource = new MatTableDataSource<Product>(this.documents);
@@ -31,7 +31,6 @@ export class SearchResultComponent implements OnInit {
 	ngOnInit() {
 	}
 	ngOnChanges(changes: SimpleChanges){
-		console.log(this.dataSource);
 		this.dataSource = new MatTableDataSource<Product>(changes.documents.currentValue)
 		this.clearSelection()
 	}
@@ -123,7 +122,7 @@ export class Location{
 export class ArchRecord{
 	id: number;
 
-    pnumberInBox: number;
+    numberInBox: number;
 
     archBox: ArchBox;
 }
@@ -166,7 +165,7 @@ export class Document{
 
 	archRecord: ArchRecord;
 
-	isBlocked : boolean;
+	blocked : boolean;
 }
 
 export class Product {

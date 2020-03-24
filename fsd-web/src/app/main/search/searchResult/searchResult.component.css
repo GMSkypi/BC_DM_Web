@@ -1,24 +1,7 @@
 .searchResult {
 
 }
-/*
-.ui-serch-bar-form {
-    display: flex;
-    flex-direction: column;
-    min-height: 10px;
-  }
-  
-  .items {
-    font-size: 0.8em;
-    width: 90%;
-  }
-  ::ng-deep .mat-form-field-underline {
-  
-  }
-  table {
-    width: 100%;
-  }
-  */
+
 
   table {
     width: 100%;
@@ -45,4 +28,3 @@
     display: flex;
     width: 100%;
   }
-  
